@@ -1,0 +1,53 @@
+{
+    "name": "sdtech/log-viewer-laravel",
+    "description": "This package simplifies the process of viewing Laravel logs by providing a user-friendly interface to browse, filter, and manage log entries directly from the application. It allows developers to monitor and troubleshoot issues in real-time without needing to access the file system or navigate complex log files",
+    "type": "laravel-package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sdtech\\LogViewerLaravel\\": "src/"
+        },
+        "classmap": [
+            "src/Controllers"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sdtech\\LogViewerLaravel\\Test\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "sd bacchu",
+            "email": "bacchu.cse11@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "keywords": [
+        "logviewer",
+        "laravel-log-viewer",
+        "log",
+        "laravel-log",
+        "laravel-logs",
+        "log-reader",
+        "log-viewer",
+        "logging",
+        "laravel"
+    ],
+    "require": {
+        "php": "^7.2|^8.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7||^8.4|^9.3.3|^10.1",
+        "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^8.0|^9.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sdtech\\LogViewerLaravel\\Providers\\LogViewerLaravelServiceProvider"
+            ]
+        }
+    }
+
+}
