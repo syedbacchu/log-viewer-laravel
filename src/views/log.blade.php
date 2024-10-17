@@ -226,18 +226,19 @@
           @foreach($logs as $key => $log)
             <tr data-display="stack{{{$key}}}">
               @if ($standardFormat)
+              <td class="date">{{{$log['date']}}}</td>
                 <td class="nowrap text-{{{$log['level_class']}}}">
                   <span class="fa fa-{{{$log['level_img']}}}" aria-hidden="true"></span>&nbsp;&nbsp;{{$log['level']}}
                 </td>
                 <td class="text">{{$log['context']}}</td>
               @endif
-              <td class="date">{{{$log['date']}}}</td>
+
               <td class="text">
                 @if ($log['stack'])
                   <button type="button"
                           class="float-right expand btn btn-outline-dark btn-sm mb-2 ml-2"
                           data-display="stack{{{$key}}}">
-                    <span class="fa fa-search"></span>
+                    <span class="fa fa-ellipsis-h"></span>
                   </button>
                 @endif
                 {{{$log['text']}}}
