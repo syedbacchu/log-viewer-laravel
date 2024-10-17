@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="robots" content="noindex, nofollow">
-  <title>Log Viewer Laravel</title>
+  <title>{{ config('logviewer.log_viewer_title') }} Log Viewer</title>
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -130,8 +130,8 @@
 
     [data-theme="dark"] .page-link:hover {
       color: #ffffff;
-      background-color: #0051a9;
-      border-color: #0568d2;
+      background-color: #151515;
+      border-color: #464646;
     }
 
     [data-theme="dark"] .form-control {
@@ -149,32 +149,35 @@
   </style>
 
   <script>
+
+
     function initTheme() {
-      const darkThemeSelected =
-        localStorage.getItem('darkSwitch') !== null &&
-        localStorage.getItem('darkSwitch') === 'dark';
-      darkSwitch.checked = darkThemeSelected;
-      darkThemeSelected ? document.body.setAttribute('data-theme', 'dark') :
+    // Default to dark theme if 'darkSwitch' is not set in localStorage
+        const darkThemeSelected =
+            localStorage.getItem('darkSwitch') === null || localStorage.getItem('darkSwitch') === 'dark';
+        darkSwitch.checked = darkThemeSelected;
+        darkThemeSelected ? document.body.setAttribute('data-theme', 'dark') :
         document.body.removeAttribute('data-theme');
     }
 
     function resetTheme() {
-      if (darkSwitch.checked) {
-        document.body.setAttribute('data-theme', 'dark');
-        localStorage.setItem('darkSwitch', 'dark');
-      } else {
-        document.body.removeAttribute('data-theme');
-        localStorage.removeItem('darkSwitch');
-      }
+        if (darkSwitch.checked) {
+            document.body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('darkSwitch', 'dark');
+        } else {
+            document.body.removeAttribute('data-theme');
+            localStorage.setItem('darkSwitch', 'light'); // Explicitly set to light
+        }
     }
+
   </script>
 </head>
 <body>
 <div class="container-fluid">
   <div class="row">
     <div class="col sidebar mb-3">
-      <h1><i class="fa fa-calendar" aria-hidden="true"></i> Log Viewer {{ config('logviewer.log_viewer_title') }}</h1>
-      <p class="text-muted"><i>by {{ config('logviewer.log_viewer_author') }}</i></p>
+      <h1><i class="fa fa-file" aria-hidden="true"></i> {{ config('logviewer.log_viewer_title') }} Logs</h1>
+
 
       <div class="custom-control custom-switch" style="padding-bottom:20px;">
         <input type="checkbox" class="custom-control-input" id="darkSwitch">
@@ -197,6 +200,7 @@
           </a>
         @endforeach
       </div>
+      <p class="text-muted"><i>by {{ config('logviewer.log_viewer_author') }}</i></p>
     </div>
     <div class="col-10 table-container">
       @if ($logs === null)
@@ -208,9 +212,9 @@
           <thead>
           <tr>
             @if ($standardFormat)
+                <th>Date</th>
               <th>Level</th>
               <th>Context</th>
-              <th>Date</th>
             @else
               <th>Line number</th>
             @endif
@@ -292,20 +296,19 @@
 <script>
 
   // dark mode by https://github.com/coliff/dark-mode-switch
-  const darkSwitch = document.getElementById('darkSwitch');
+const darkSwitch = document.getElementById('darkSwitch');
 
-  // this is here so we can get the body dark mode before the page displays
-  // otherwise the page will be white for a second...
-  initTheme();
+    // Initialize the theme on page load
+    initTheme();
 
-  window.addEventListener('load', () => {
+    window.addEventListener('load', () => {
     if (darkSwitch) {
-      initTheme();
-      darkSwitch.addEventListener('change', () => {
+        initTheme();
+        darkSwitch.addEventListener('change', () => {
         resetTheme();
-      });
+        });
     }
-  });
+    });
 
   // end darkmode js
 

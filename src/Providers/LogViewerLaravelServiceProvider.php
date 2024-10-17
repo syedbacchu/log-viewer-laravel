@@ -21,14 +21,7 @@ class LogViewerLaravelServiceProvider extends ServiceProvider
             $this->loadViewsFrom(__DIR__.'/../../views', 'log-viewer-laravel');
         }
 
-        if (method_exists($this, 'publishes')) {
-            $this->publishes([
-                __DIR__.'/../../views' => base_path('/resources/views/vendor/log-viewer-laravel'),
-            ], 'logviewerlaravel');
-            $this->publishes([
-                __DIR__.'/../../config/logviewer.php' => $this->config_path('logviewer.php'),
-            ]);
-        }
+        $this->publishFiles();
     }
 
     /**
@@ -39,6 +32,17 @@ class LogViewerLaravelServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    protected function publishFiles()
+    {
+
+        $this->publishes([
+            __DIR__.'/../views' => base_path('/resources/views/vendor/log-viewer-laravel'),
+        ], 'logviewerlaravel');
+        $this->publishes([
+            __DIR__.'/../config/logviewer.php' => $this->config_path('logviewer.php'),
+        ],'logviewerlaravel');
     }
 
     /**
