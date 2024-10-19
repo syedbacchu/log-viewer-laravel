@@ -22,7 +22,7 @@
             "email": "bacchu.cse11@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "keywords": [
         "logviewer",
         "laravel-log-viewer",
